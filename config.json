@@ -1,0 +1,176 @@
+{
+  "spreadsheet_id": "1f8-oqT8fk2g--OwOvlfK-srKzkX-Zz11sWY1Fv6C_yc",
+  "banks": {
+    "kakaobank": {
+      "tab": "카카오뱅크",
+      "pages": {
+        "mortgage": "https://www.kakaobank.com/products/mortgageLoan",
+        "lease": "https://www.kakaobank.com/products/leaseLoan",
+        "credit": "https://www.kakaobank.com/products/creditLoan"
+      },
+      "items": {
+        "B": {
+          "page": "mortgage",
+          "label": "6개월 변동금리 대출",
+          "name": "주담대 6개월변동(신규코픽스)"
+        },
+        "C": {
+          "page": "mortgage",
+          "label": "5년 변동금리 대출",
+          "name": "주담대 5년변동(금융채5년)"
+        },
+        "D": {
+          "page": "lease",
+          "label": "HF|주택금융공사",
+          "name": "전월세 HF(신규코픽스6M)"
+        },
+        "E": {
+          "page": "credit",
+          "label": "신용대출",
+          "name": "신용대출"
+        },
+        "F": {
+          "page": "credit",
+          "label": "중신용",
+          "name": "중신용대출"
+        }
+      },
+      "click": {
+        "mortgage": [
+          "금리정보"
+        ],
+        "lease": [
+          "금리정보"
+        ],
+        "credit": [
+          "금리정보"
+        ]
+      }
+    },
+    "kbank": {
+      "tab": "케이뱅크",
+      "pages": {
+        "mortgage": "https://www.kbanknow.com/web/product/loan/apt-mortgage",
+        "lease": "https://www.kbanknow.com/web/product/loan/jeonse-loan",
+        "credit": "https://www.kbanknow.com/web/product/loan/credit-loan"
+      },
+      "items": {
+        "B": {
+          "page": "mortgage",
+          "api": {
+            "url": "WEBPRDLON0000600A",
+            "min": "pdIntRtData.varAplyMinIntRt",
+            "max": "pdIntRtData.varAplyMaxIntRt"
+          },
+          "name": "아담대 신규코픽스6M"
+        },
+        "C": {
+          "page": "mortgage",
+          "api": {
+            "url": "WEBPRDLON0000600A",
+            "min": "pdIntRtData.varAplyMinIntRtSc",
+            "max": "pdIntRtData.varAplyMaxIntRtSc"
+          },
+          "name": "아담대 신잔액코픽스3M"
+        },
+        "D": {
+          "page": "mortgage",
+          "api": {
+            "url": "WEBPRDLON0000600A",
+            "min": "pdIntRtData.varAplyMinIntRtThrd",
+            "max": "pdIntRtData.varAplyMaxIntRtThrd"
+          },
+          "name": "아담대 주기형5년"
+        },
+        "E": {
+          "page": "lease",
+          "api": {
+            "url": "WEBPRDLON0000300A",
+            "min": "pdDetailData.aplyMinIntRt",
+            "max": "pdDetailData.aplyMaxIntRt"
+          },
+          "name": "전세 신규코픽스6M"
+        },
+        "F": {
+          "page": "lease",
+          "api": {
+            "url": "WEBPRDLON0000300A",
+            "min": "pdDetailData.fixAplyMinIntRtBf",
+            "max": "pdDetailData.fixAplyMaxIntRtBf"
+          },
+          "name": "전세 고정"
+        },
+        "G": {
+          "page": "credit",
+          "api": {
+            "url": "WEBPRDLON0000500A",
+            "min": "crdtLnIntrList[pdNm=신용대출(만기일시)].minIntRt",
+            "max": "crdtLnIntrList[pdNm=신용대출(만기일시)].maxIntRt"
+          },
+          "name": "신용대출"
+        },
+        "H": {
+          "page": "credit",
+          "api": {
+            "url": "WEBPRDLON0000500A",
+            "min": "crdtLnIntrList[pdNm=신용대출 플러스].minIntRt",
+            "max": "crdtLnIntrList[pdNm=신용대출 플러스].maxIntRt"
+          },
+          "name": "신용대출 플러스"
+        },
+        "L": {
+          "page": "lease",
+          "api": {
+            "url": "WEBPRDLON0000300A",
+            "min": "pdDetailData.aplyMinIntRtLnMove",
+            "max": "pdDetailData.aplyMaxIntRtLnMove"
+          },
+          "name": "전세 갈아타기 변동"
+        },
+        "M": {
+          "page": "lease",
+          "api": {
+            "url": "WEBPRDLON0000300A",
+            "min": "pdDetailData.fixAplyMinIntRtBfLnMove",
+            "max": "pdDetailData.fixAplyMaxIntRtBfLnMove"
+          },
+          "name": "전세 갈아타기 고정"
+        }
+      }
+    },
+    "tossbank": {
+      "tab": "토스뱅크",
+      "pages": {
+        "lease": "https://www.tossbank.com/product-service/loans/jeonse-loan",
+        "credit": "https://www.tossbank.com/product-service/loans/credit-loan"
+      },
+      "items": {
+        "D": {
+          "page": "lease",
+          "label": "6개월변동금리[\\s\\S]*?\\n전월세보증금대출\\s+최저",
+          "name": "전월세 일반(코픽스6M)"
+        },
+        "E": {
+          "page": "lease",
+          "label": "6개월변동금리[\\s\\S]*?\\n청년 전월세보증금대출",
+          "name": "전월세 청년(코픽스6M)"
+        },
+        "F": {
+          "page": "lease",
+          "label": "6개월변동금리[\\s\\S]*?\\n전월세보증금대출 플러스",
+          "name": "전월세 플러스(코픽스6M)"
+        },
+        "G": {
+          "page": "credit",
+          "label": "금리정보\\s*\\n신용대출\\s*\\n대출금리",
+          "name": "신용대출(금융채3M)"
+        },
+        "H": {
+          "page": "credit",
+          "label": "\\n함께대출\\s*\\n대출금리",
+          "name": "함께대출"
+        }
+      }
+    }
+  }
+}
