@@ -3,19 +3,21 @@ name: daily-rate-scrape
 on:
   schedule:
     - cron: "30 23 * * 0-4"   # 한국시간 평일(월~금) 오전 8시 30분
+    - cron: "10 0 * * 1-5"    # 예비 09:10 (GitHub 예약 누락 대비, 이미 기록됐으면 건너뜀)
+    - cron: "50 0 * * 1-5"    # 예비 09:50
   workflow_dispatch:           # 수동 실행 버튼
     inputs:
       dry_run:
         description: "시트에 쓰지 않고 수집 결과만 확인"
         type: boolean
-        default: true
+        default: false
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: pip install playwright gspread && playwright install --with-deps chromium
