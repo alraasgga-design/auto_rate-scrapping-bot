@@ -64,13 +64,25 @@ def fetch_pages(bank: str, pages: dict, discover: bool, clicks: dict | None = No
             page = ctx.new_page()
             captured = []
             page.on("response", lambda r, c=captured: c.append(r) if "json" in r.headers.get("content-type", "") else None)
-            try:
-                page.goto(url, wait_until="networkidle", timeout=60_000)
-            except Exception as e:
-                print(f"[{bank}] {key} 페이지 열기 실패: {url}\n  {str(e).splitlines()[0]}")
+            # 은행 페이지가 광고·통계 요청을 계속 보내 networkidle에 영영 도달하지 못하는 날이 있어
+            # (2026-10-21 케이뱅크 아담대) 기본 로딩만 기다리고, 실패하면 한 번 더 연다
+            err = None
+            for _ in range(2):
+                try:
+                    page.goto(url, wait_until="load", timeout=60_000)
+                    err = None
+                    break
+                except Exception as e:
+                    err = str(e).splitlines()[0]
+            if err:
+                print(f"[{bank}] {key} 페이지 열기 실패: {url}\n  {err}")
                 texts[key], apis[key] = "", []
                 page.close()
                 continue
+            try:
+                page.wait_for_load_state("networkidle", timeout=20_000)
+            except Exception:
+                pass
             # 금리 문구가 나타날 때까지 대기 (SPA 대응)
             try:
                 page.wait_for_function("() => /\\d\\.\\d+\\s*%/.test(document.body.innerText)", timeout=15_000)
@@ -162,10 +174,17 @@ def write_row(sh, tab: str, names: list, values: list, today: dt.date, force: bo
     row = [today.isoformat()] + [v or "" for v in values]
     dates = ws.col_values(1)
     if row[0] in dates:
-        if not force:
+        r = dates.index(row[0]) + 1
+        if force:
+            ws.update(range_name=f"A{r}", values=[row])
+            return "오늘 줄을 덮어씀"
+        # 앞선 실행에서 빈칸으로 남은 칸만 새 값으로 채운다 (예비 실행이 누락분을 메움)
+        old = ws.row_values(r) + [""] * len(row)
+        merged = [o if o else n for o, n in zip(old, row)]
+        if merged == old[:len(row)]:
             return "오늘 줄이 이미 있어 건너뜀"
-        ws.update(range_name=f"A{dates.index(row[0]) + 1}", values=[row])
-        return "오늘 줄을 덮어씀"
+        ws.update(range_name=f"A{r}", values=[merged])
+        return "오늘 줄의 빈칸을 채움"
     ws.append_row(row, value_input_option="RAW")
     return "새 줄 추가"
 
