@@ -26,7 +26,7 @@ jobs:
           python-version: "3.12"
       - run: pip install playwright gspread && playwright install --with-deps chromium
       - name: 금리 수집·기입
-        run: python scraper.py ${{ inputs.discover && '--discover' || (inputs.dry_run && '--dry-run' || '') }}
+        run: python audit.py
         env:
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
       - name: 점검 파일 보관
