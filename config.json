@@ -29,7 +29,7 @@
         },
         "E": {
           "page": "credit",
-          "label": "신용대출",
+          "label": "\\n신용대출 : ",
           "name": "신용대출"
         },
         "F": {
@@ -94,7 +94,8 @@
       "pages": {
         "mortgage": "https://www.kbanknow.com/web/product/loan/apt-mortgage",
         "lease": "https://www.kbanknow.com/web/product/loan/jeonse-loan",
-        "credit": "https://www.kbanknow.com/web/product/loan/credit-loan"
+        "credit": "https://www.kbanknow.com/web/product/loan/credit-loan",
+        "credit_move": "https://www.kbanknow.com/web/product/loan/credit-loan-switch"
       },
       "items": {
         "B": {
@@ -177,6 +178,24 @@
             "max": "pdDetailData.fixAplyMaxIntRtBfLnMove"
           },
           "name": "전세 갈아타기 고정"
+        },
+        "N": {
+          "page": "credit_move",
+          "api": {
+            "url": "WEBPRDLON0000400A",
+            "min": "pdDetailData.typeRecordList1[pdCd=01021000100000000012].minIntRt",
+            "max": "pdDetailData.typeRecordList1[pdCd=01021000100000000012].maxIntRt"
+          },
+          "name": "신용대출 갈아타기 신용(금융채3M)"
+        },
+        "O": {
+          "page": "credit_move",
+          "api": {
+            "url": "WEBPRDLON0000400A",
+            "min": "pdDetailData.typeRecordList1[pdCd=01021000400000000008].minIntRt",
+            "max": "pdDetailData.typeRecordList1[pdCd=01021000400000000008].maxIntRt"
+          },
+          "name": "신용대출 갈아타기 마통(금융채3M)"
         }
       }
     },
