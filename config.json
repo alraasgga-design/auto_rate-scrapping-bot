@@ -6,7 +6,10 @@
       "pages": {
         "mortgage": "https://www.kakaobank.com/products/mortgageLoan",
         "lease": "https://www.kakaobank.com/products/leaseLoan",
-        "credit": "https://www.kakaobank.com/products/creditLoan"
+        "credit": "https://www.kakaobank.com/products/creditLoan",
+        "mortgage_move": "https://www.kakaobank.com/products/mortgageMovement",
+        "lease_move": "https://www.kakaobank.com/products/leaseLoanMovement",
+        "credit_move": "https://www.kakaobank.com/products/refinanceLoan"
       },
       "items": {
         "B": {
@@ -33,6 +36,36 @@
           "page": "credit",
           "label": "중신용",
           "name": "중신용대출"
+        },
+        "G": {
+          "page": "mortgage_move",
+          "label": "(?<!1)6개월 변동금리 대출",
+          "name": "주담대 갈아타기 6개월변동(신규코픽스)"
+        },
+        "H": {
+          "page": "mortgage_move",
+          "label": "(?<!1)5년 변동금리 대출",
+          "name": "주담대 갈아타기 5년변동(금융채5년)"
+        },
+        "I": {
+          "page": "lease_move",
+          "label": "6개월 변동금리\\s*\\nHF 전월세보증금 대출",
+          "name": "전월세 갈아타기 HF(신규코픽스6M)"
+        },
+        "J": {
+          "page": "credit_move",
+          "label": "\\n신용대출 : ",
+          "name": "신용대출 갈아타기 신용대출"
+        },
+        "K": {
+          "page": "credit_move",
+          "label": "\\n마이너스대출 : ",
+          "name": "신용대출 갈아타기 마이너스통장"
+        },
+        "L": {
+          "page": "credit_move",
+          "label": "\\n중신용대출 : ",
+          "name": "신용대출 갈아타기 중신용대출"
         }
       },
       "click": {
@@ -43,6 +76,15 @@
           "금리정보"
         ],
         "credit": [
+          "금리정보"
+        ],
+        "mortgage_move": [
+          "금리정보"
+        ],
+        "lease_move": [
+          "금리정보"
+        ],
+        "credit_move": [
           "금리정보"
         ]
       }
@@ -143,7 +185,9 @@
       "pages": {
         "lease": "https://www.tossbank.com/product-service/loans/jeonse-loan",
         "credit": "https://www.tossbank.com/product-service/loans/credit-loan",
-        "mortgage": "https://www.tossbank.com/product-service/loans/mortgage-loan"
+        "mortgage": "https://www.tossbank.com/product-service/loans/mortgage-loan",
+        "lease_move": "https://www.tossbank.com/product-service/loans/jeonse-loan-switching",
+        "credit_move": "https://www.tossbank.com/product-service/loans/switching-platform"
       },
       "items": {
         "D": {
@@ -180,6 +224,26 @@
           "page": "mortgage",
           "label": "5년 변동 금리\\s*\\(",
           "name": "주담대 5년변동(금융채5년)"
+        },
+        "K": {
+          "page": "lease_move",
+          "label": "6개월변동금리[\\s\\S]*?\\n전월세보증금 대환대출\\s+최저",
+          "name": "전월세 갈아타기 일반(신규코픽스6M)"
+        },
+        "L": {
+          "page": "lease_move",
+          "label": "6개월변동금리[\\s\\S]*?\\n청년 전월세보증금 대환대출",
+          "name": "전월세 갈아타기 청년(신규코픽스6M)"
+        },
+        "M": {
+          "page": "credit_move",
+          "label": "금리정보\\s*\\n토스뱅크대환대출\\s+최저",
+          "name": "신용대출 갈아타기 일반(금융채3~12M)"
+        },
+        "N": {
+          "page": "credit_move",
+          "label": "\\(마이너스통장\\)\\s+최저",
+          "name": "신용대출 갈아타기 마통(금융채3~12M)"
         }
       }
     }
