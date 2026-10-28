@@ -142,7 +142,8 @@
       "tab": "토스뱅크",
       "pages": {
         "lease": "https://www.tossbank.com/product-service/loans/jeonse-loan",
-        "credit": "https://www.tossbank.com/product-service/loans/credit-loan"
+        "credit": "https://www.tossbank.com/product-service/loans/credit-loan",
+        "mortgage": "https://www.tossbank.com/product-service/loans/mortgage-loan"
       },
       "items": {
         "D": {
@@ -169,6 +170,11 @@
           "page": "credit",
           "label": "\\n함께대출\\s*\\n대출금리",
           "name": "함께대출"
+        },
+        "I": {
+          "page": "mortgage",
+          "label": "대출금리",
+          "name": "주담대"
         }
       }
     }

@@ -2,6 +2,7 @@
 
 사용법
   python scraper.py --discover     # 각 페이지 본문 텍스트와 JSON 응답을 debug/에 저장 (라벨·API 찾기용)
+  python scraper.py --discover --bank tossbank   # 한 은행만
   python scraper.py --dry-run      # 수집만 하고 시트에는 쓰지 않음
   python scraper.py                # 오늘(KST) 날짜로 한 줄 추가. 이미 오늘 줄이 있으면 건너뜀
   python scraper.py --force        # 오늘 줄이 있어도 새 값으로 덮어씀
@@ -21,6 +22,8 @@ from playwright.sync_api import sync_playwright
 KST = dt.timezone(dt.timedelta(hours=9))
 # "4.18~6.04%", "연 4.80 ~ 13.16%", "최저 연 5.44% ~ 최고 연 15.00%" 모두 인식
 RATE_RANGE = re.compile(r"(\d{1,2}\.\d{1,3})\s*%?\s*[~∼～]\s*(?:최고\s*)?(?:연\s*)?(\d{1,2}\.\d{1,3})\s*%")
+# 물결표 없이 "최저 연 4.44%" "최고 연 9.19%"가 따로 적힌 경우 (구간 표기를 못 찾았을 때만 사용)
+MIN_MAX = re.compile(r"최저\s*(?:연\s*)?(\d{1,2}\.\d{1,3})\s*%[\s\S]{0,60}?최고\s*(?:연\s*)?(\d{1,2}\.\d{1,3})\s*%")
 DEBUG_DIR = Path("debug")
 
 
@@ -156,7 +159,7 @@ def extract(text: str, label: str) -> str | None:
         m = re.search(label, part)
         if not m:
             continue
-        r = RATE_RANGE.search(part, m.end())
+        r = RATE_RANGE.search(part, m.end()) or MIN_MAX.search(part, m.end())
         if r:
             return f"{r.group(1)}~{r.group(2)}"
     return None
@@ -169,6 +172,8 @@ def write_row(sh, tab: str, names: list, values: list, today: dt.date, force: bo
     except gspread.WorksheetNotFound:
         ws = sh.add_worksheet(title=tab, rows=1000, cols=len(names) + 1)
     header = ["날짜"] + names
+    if ws.col_count < len(header):  # 상품(열)을 새로 추가하면 시트 칸 수도 늘린다
+        ws.add_cols(len(header) - ws.col_count)
     if ws.row_values(1) != header:
         ws.update(range_name="A1", values=[header])
     row = [today.isoformat()] + [v or "" for v in values]
@@ -194,6 +199,7 @@ def main():
     ap.add_argument("--discover", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--bank", help="이 은행만 실행 (예: tossbank). --discover·--dry-run 점검용")
     args = ap.parse_args()
 
     cfg = json.loads(Path(__file__).with_name("config.json").read_text(encoding="utf-8"))
@@ -201,6 +207,8 @@ def main():
 
     results = {}
     for bank, b in cfg["banks"].items():
+        if args.bank and bank != args.bank:
+            continue
         texts, apis = fetch_pages(bank, b["pages"], args.discover, b.get("click"))
         results[bank] = {
             col: extract_api(apis[it["page"]], it["api"]) if "api" in it else extract(texts[it["page"]], it["label"])
